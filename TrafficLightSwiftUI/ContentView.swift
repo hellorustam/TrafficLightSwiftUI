@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    private var redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
-    private var orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
-    private var greenColor = Color(red: 0.54, green: 1, blue: 0.25, opacity: 0.5)
+    @State private var redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
+    @State private var orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
+    @State private var greenColor = Color(red: 0.54, green: 1, blue: 0.25, opacity: 0.5)
+    
+    @State private var textButton = "START"
     
     var body: some View {
         VStack {
@@ -18,8 +20,8 @@ struct ContentView: View {
             trafficLight
             Spacer()
             
-            Button(action: { print("lol") }) {
-                Text(("START"))
+            Button(action: mainButton) {
+                Text(textButton)
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
@@ -49,6 +51,10 @@ struct ContentView: View {
         .padding(40)
         .background(Color(red: 0.902, green: 0.942, blue: 0.949))
         .cornerRadius(.infinity)
+    }
+    
+    private func mainButton() {
+        textButton = "NEXT"
     }
 }
 
