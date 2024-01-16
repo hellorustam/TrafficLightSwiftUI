@@ -14,6 +14,14 @@ struct ContentView: View {
     
     @State private var textButton = "START"
     
+    private enum AlphaTrafficLigt {
+        case red
+        case orange
+        case green
+    }
+    
+   @State  private var statusTrafficLight = AlphaTrafficLigt.red
+    
     var body: some View {
         VStack {
             Spacer()
@@ -36,15 +44,15 @@ struct ContentView: View {
     private var trafficLight: some View {
         VStack(spacing: 24) {
             Circle()
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                .frame(width: 100, height: 100)
                 .foregroundColor(redColor)
                 .overlay(Circle().stroke(Color.white, lineWidth: 8))
             Circle()
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                .frame(width: 100, height: 100)
                 .foregroundColor(orangeColor)
                 .overlay(Circle().stroke(Color.white, lineWidth: 8))
             Circle()
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                .frame(width: 100, height: 100)
                 .foregroundColor(greenColor)
                 .overlay(Circle().stroke(Color.white, lineWidth: 8))
         }
@@ -53,8 +61,29 @@ struct ContentView: View {
         .cornerRadius(.infinity)
     }
     
+    private func setStatusTrafficLight() {
+        switch statusTrafficLight {
+        case .red:
+            redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 1)
+            orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
+            greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
+            statusTrafficLight = AlphaTrafficLigt.orange
+        case .orange:
+            redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
+            orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 1)
+            greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
+            statusTrafficLight = AlphaTrafficLigt.green
+        case .green:
+            redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
+            orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
+            greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 1)
+            statusTrafficLight = AlphaTrafficLigt.red
+        }
+    }
+    
     private func mainButton() {
         textButton = "NEXT"
+        setStatusTrafficLight()
     }
 }
 
