@@ -82,7 +82,10 @@ struct ContentView: View {
     }
     
     private func mainButton() {
-        textButton = "NEXT"
+        if textButton == "START" {
+            textButton = "NEXT"
+        }
+
         setStatusTrafficLight()
     }
 }
