@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    private enum AlphaTrafficLight {
+        case red
+        case orange
+        case green
+    }
+    
     @State private var redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
     @State private var orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
     @State private var greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
     
     @State private var textButton = "START"
     
-    private enum AlphaTrafficLigt {
-        case red
-        case orange
-        case green
-    }
-    
-   @State  private var statusTrafficLight = AlphaTrafficLigt.red
+    @State  private var statusTrafficLight = AlphaTrafficLight.red
     
     var body: some View {
         VStack {
@@ -43,22 +43,25 @@ struct ContentView: View {
     
     private var trafficLight: some View {
         VStack(spacing: 24) {
-            Circle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(redColor)
-                .overlay(Circle().stroke(Color.white, lineWidth: 8))
-            Circle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(orangeColor)
-                .overlay(Circle().stroke(Color.white, lineWidth: 8))
-            Circle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(greenColor)
-                .overlay(Circle().stroke(Color.white, lineWidth: 8))
+            CircleTraffic(color: redColor)
+            CircleTraffic(color: orangeColor)
+            CircleTraffic(color: greenColor)
         }
         .padding(40)
         .background(Color(red: 0.902, green: 0.942, blue: 0.949))
         .cornerRadius(.infinity)
+    }
+    
+    private struct CircleTraffic: View {
+        var color: Color
+        
+        var body: some View {
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(color)
+                .overlay(Circle().stroke(Color.white, lineWidth: 8))
+        }
+        
     }
     
     private func setStatusTrafficLight() {
@@ -67,17 +70,17 @@ struct ContentView: View {
             redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 1)
             orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
             greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
-            statusTrafficLight = AlphaTrafficLigt.orange
+            statusTrafficLight = AlphaTrafficLight.orange
         case .orange:
             redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
             orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 1)
             greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
-            statusTrafficLight = AlphaTrafficLigt.green
+            statusTrafficLight = AlphaTrafficLight.green
         case .green:
             redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
             orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
             greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 1)
-            statusTrafficLight = AlphaTrafficLigt.red
+            statusTrafficLight = AlphaTrafficLight.red
         }
     }
     
