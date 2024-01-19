@@ -43,25 +43,13 @@ struct ContentView: View {
     
     private var trafficLight: some View {
         VStack(spacing: 24) {
-            CircleTraffic(color: redColor)
-            CircleTraffic(color: orangeColor)
-            CircleTraffic(color: greenColor)
+            CircleTrafficView(color: redColor)
+            CircleTrafficView(color: orangeColor)
+            CircleTrafficView(color: greenColor)
         }
         .padding(40)
         .background(Color(red: 0.902, green: 0.942, blue: 0.949))
         .cornerRadius(.infinity)
-    }
-    
-    private struct CircleTraffic: View {
-        var color: Color
-        
-        var body: some View {
-            Circle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(color)
-                .overlay(Circle().stroke(Color.white, lineWidth: 8))
-        }
-        
     }
     
     private func setStatusTrafficLight() {
