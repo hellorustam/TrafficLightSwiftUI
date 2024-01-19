@@ -14,13 +14,11 @@ struct ContentView: View {
         case green
     }
     
+    @State  private var statusTrafficLight = AlphaTrafficLight.red
     @State private var redColor = Color(red: 1, green: 0.25, blue: 0.25, opacity: 0.5)
     @State private var orangeColor = Color(red: 1, green: 0.7, blue: 0.25, opacity: 0.5)
     @State private var greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 0.5)
-    
     @State private var textButton = "START"
-    
-    @State  private var statusTrafficLight = AlphaTrafficLight.red
     
     var body: some View {
         VStack {
@@ -28,15 +26,10 @@ struct ContentView: View {
             trafficLight
             Spacer()
             
-            Button(action: mainButton) {
-                Text(textButton)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .background(.black)
-                    .cornerRadius(16)
-                    .font(.system(size: 24))
-            }
+            ButtonMainView(
+                textButton: textButton,
+                setStatusTrafficLight: setStatusTrafficLight
+            )
         }
         .padding()
     }
@@ -70,14 +63,6 @@ struct ContentView: View {
             greenColor = Color(red: 0.41, green: 0.94, blue: 0.16, opacity: 1)
             statusTrafficLight = AlphaTrafficLight.red
         }
-    }
-    
-    private func mainButton() {
-        if textButton == "START" {
-            textButton = "NEXT"
-        }
-
-        setStatusTrafficLight()
     }
 }
 
